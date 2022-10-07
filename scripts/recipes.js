@@ -29,6 +29,8 @@ class Recipes {
             this.getRecipesbyName();
             // Search by description
             this.getRecipesbyDescription();
+            // Search by ingredient
+            this.getRecipesbyIngredient();
             // Add results to DOM
             this.renderResults();
         }
@@ -62,7 +64,7 @@ class Recipes {
         });
     }
 
-    // Check search input / recipe.description match
+    // Search by description
     getRecipesbyDescription() {
         this._data.forEach(recipe => {
             let recipeId = recipe.id;
@@ -78,6 +80,28 @@ class Recipes {
             else {
                 return "No recipe found";
             }
+        });
+    }
+
+    // Search by Ingredient
+    getRecipesbyIngredient() {
+        this._data.forEach(recipe => {
+            let recipeId = recipe.id;
+            let recipeIngredients = recipe.ingredients
+            // Check if a recipe includes search input characters in its array of ingredients
+            recipeIngredients.forEach(element => {
+                if (element.ingredient.toLowerCase().includes(this._query)) {
+                    // Add recipe to results array (only if its id is not yet listed)
+                    if (!this.isId(recipeId)) {
+                        this._results.push(recipe);
+                        return recipe;
+                    }
+                }
+                else {
+                    return "No recipe found";
+                }
+            })
+
         });
     }
 
