@@ -18,6 +18,7 @@ class DropdownTemplate {
                 li.setAttribute("class", "dropdown-item");
                 li.textContent = element;
                 li.dataset.category = 'ingredients';
+                li.setAttribute("onclick", `myRecipes.addTag("${element}","${this._category}")`);
                 ul.appendChild(li);
             });
             dropdown.appendChild(ul);
@@ -31,6 +32,7 @@ class DropdownTemplate {
                 li.setAttribute("class", "dropdown-item");
                 li.textContent = element;
                 li.dataset.category = 'appliances';
+                li.setAttribute("onclick", `myRecipes.addTag("${element}","${this._category}")`);
                 ul.appendChild(li);
             });
             dropdown.appendChild(ul);
@@ -44,6 +46,7 @@ class DropdownTemplate {
                 li.setAttribute("class", "dropdown-item");
                 li.textContent = element;
                 li.dataset.category = 'ustensils';
+                li.setAttribute("onclick", `myRecipes.addTag("${element}","${this._category}")`);
                 ul.appendChild(li);
             });
             dropdown.appendChild(ul);
