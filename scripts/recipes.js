@@ -4,7 +4,6 @@ class Recipes {
         this._data = data;
         this._query = "";
         this._results = [];
-
     }
 
     // Check if query is at least 3 characters long
@@ -25,14 +24,25 @@ class Recipes {
             this._results = [];
             // Remove existing cards from DOM
             this.removeCards();
+            // Reset style of "not found" message
+            document.getElementById('no-results').style.display = "none";
             // Search by name (title)
             this.getRecipesbyName();
             // Search by description
             this.getRecipesbyDescription();
             // Search by ingredient
             this.getRecipesbyIngredient();
-            // Add results to DOM
-            this.renderResults();
+
+            if (this._results.length == 0) {
+                // Show no-results message
+                document.getElementById('no-results').style.display = "block";
+            }
+            else {
+                // Add results to DOM
+                this.renderResults();
+            }
+
+
         }
         else {
             // Display all recipes
