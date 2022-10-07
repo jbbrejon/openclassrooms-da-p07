@@ -38,8 +38,10 @@
                 placeholder="Rechercher une recette" aria-label="Search" name="item" id="item"
                 oninput="myInput.update()">
         </form>
-
+        <main>
+            <section id="sect-results" class="row mt-4"></section>
         </main>
+
 
     </div>
 
@@ -54,6 +56,8 @@
         crossorigin="anonymous"></script>
     <!-- Data file -->
     <script src="data/recipes.js"></script>
+    <!-- Card template -->
+    <script src="/scripts/templates/recipe.js"></script>
     <!-- Input class -->
     <script src="/scripts/input.js"></script>
     <!-- Recipes class -->
