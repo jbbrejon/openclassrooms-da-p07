@@ -22,4 +22,20 @@ class Recipes {
             console.log(this._query);
         }
     }
+    renderAll() {
+        this._data.forEach(recipe => {
+            let article = new RecipeTemplate(recipe);
+            article.createCard();
+            return article
+        });
+    }
+
+    // Remove recipe to DOM
+    removeCards() {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.remove();
+        });
+        return "Recipe cards removed";
+    }
 }
