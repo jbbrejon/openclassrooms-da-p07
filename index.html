@@ -21,9 +21,9 @@
 </head>
 
 <body>
-
+    <!-- Page container -->
     <div class="container">
-
+        <!-- Header -->
         <header>
             <div class="row">
                 <img class="col mt-4" src="/assets/logo.svg" height="46px" alt="logo petits plats">
@@ -32,7 +32,11 @@
                 <h1 class="col text-center header-text">Les petits plats</h1>
             </div>
         </header>
-
+        <!-- Search bar-->
+        <form class="form-inline row mt-4" id="global-search" onsubmit="event.preventDefault()">
+            <input class="form-control col-11 bg-light input-search mb-5" type="search"
+                placeholder="Rechercher une recette" aria-label="Search" name="item" id="item">
+        </form>
 
         </main>
 
