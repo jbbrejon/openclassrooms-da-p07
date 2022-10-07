@@ -4,6 +4,9 @@ class Recipes {
         this._data = data;
         this._query = "";
         this._results = [];
+        this._ingredientsInResults = [];
+        this._appliancesInResults = [];
+        this._ustensilsInResults = [];
     }
 
     // Check if query is at least 3 characters long
@@ -20,12 +23,18 @@ class Recipes {
     globalSearch(input) {
         this._query = input;
         if (this.isThreeChar()) {
-            // Reset results array
+
+            // Reset arrays containing previous values
             this._results = [];
-            // Remove existing cards from DOM
+            this._ingredientsInResults = [];
+            this._appliancesInResults = [];
+            this._ustensilsInResults = [];
+
+            // Reset DOM elements
             this.removeCards();
-            // Reset style of "not found" message
+            this.removeDropdown()
             document.getElementById('no-results').style.display = "none";
+
             // Search by name (title)
             this.getRecipesbyName();
             // Search by description
@@ -38,11 +47,13 @@ class Recipes {
                 document.getElementById('no-results').style.display = "block";
             }
             else {
-                // Add results to DOM
+                // Get list of ingredients, appliances from results array and add dropdown elements to DOM
+                this.getIngredients();
+                this.getAppliances();
+                this.getUstensils();
+                // Add results to DOM (recipes)
                 this.renderResults();
             }
-
-
         }
         else {
             // Display all recipes
@@ -115,6 +126,49 @@ class Recipes {
         });
     }
 
+    // Get list of ingredients from results array + fill dropdown-ingredients
+    getIngredients() {
+        this._results.forEach(recipe => {
+            let recipeIngredients = recipe.ingredients
+            recipeIngredients.forEach(element => {
+                if (!this._ingredientsInResults.includes(element.ingredient)) {
+                    this._ingredientsInResults.push(element.ingredient);
+                }
+            })
+        });
+        let dropdown = new DropdownTemplate("ingredients", this._ingredientsInResults.sort())
+        dropdown.createList();
+        return this._ingredientsInResults.sort();
+    }
+    // Get list of appliances from results array + fill dropdown-appliances
+    getAppliances() {
+        this._results.forEach(recipe => {
+            let recipeAppliance = recipe.appliance;
+            if (!this._appliancesInResults.includes(recipeAppliance)) {
+                this._appliancesInResults.push(recipeAppliance);
+            }
+        });
+        let dropdown = new DropdownTemplate("appliances", this._appliancesInResults.sort())
+        dropdown.createList();
+        return this._appliancesInResults.sort();
+    }
+    // Get list of ustensils from results array + fill dropdown-ustensils
+    getUstensils() {
+        this._results.forEach(recipe => {
+            let recipeTools = recipe.ustensils
+            recipeTools.forEach(element => {
+                if (!this._ustensilsInResults.includes(element)) {
+                    this._ustensilsInResults.push(element);
+                }
+            })
+        });
+        let dropdown = new DropdownTemplate("ustensils", this._ustensilsInResults.sort())
+        dropdown.createList();
+        return this._ustensilsInResults.sort();
+    }
+
+
+    // Render data array to DOM
     renderAll() {
         this._data.forEach(recipe => {
             let article = new RecipeTemplate(recipe);
@@ -122,7 +176,7 @@ class Recipes {
             return article
         });
     }
-
+    // Render results array to DOM
     renderResults() {
         this._results.forEach(recipe => {
             let article = new RecipeTemplate(recipe);
@@ -138,6 +192,15 @@ class Recipes {
             card.remove();
         });
         return "Recipe cards removed";
+    }
+
+    // Remove dropdown elements
+    removeDropdown() {
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(element => {
+            element.remove();
+        });
+        return "Dropdown items removed";
     }
 
 }
