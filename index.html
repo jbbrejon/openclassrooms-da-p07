@@ -39,7 +39,42 @@
                 oninput="myInput.update()">
         </form>
         <main>
+
+            <!-- Tag list -->
+            <div class="tags">
+                <div id="taglist"></div>
+            </div>
+            <!-- Dropdown - Ingredients-->
+            <div class="btn-group">
+                <button type="button" class="btn btn-ingredients me-2 dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Ingrédients
+                </button>
+                <div class="dropdown-menu" id="dropdown-ingredients">
+                </div>
+            </div>
+            <!-- Dropdown - Appliances -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-appliances me-2 dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Appareils
+                </button>
+                <div class="dropdown-menu" id="dropdown-appliances">
+                </div>
+            </div>
+            <!-- Dropdown - Ustensils -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-ustensils me-2 dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Ustensiles
+                </button>
+                <div class="dropdown-menu" id="dropdown-ustensils">
+                </div>
+            </div>
+
+            <!-- Recipes cards -->
             <section id="sect-results" class="row mt-4"></section>
+            <!-- No results message -->
             <div id="no-results">Aucune recette ne correspond à votre critère … Vous pouvez chercher "tarte aux pommes",
                 "poisson", etc.
             </div>
@@ -61,6 +96,8 @@
     <script src="data/recipes.js"></script>
     <!-- Card template -->
     <script src="/scripts/templates/recipe.js"></script>
+    <!-- Dropdown template -->
+    <script src="/scripts//templates/dropdown.js"></script>
     <!-- Input class -->
     <script src="/scripts/input.js"></script>
     <!-- Recipes class -->
