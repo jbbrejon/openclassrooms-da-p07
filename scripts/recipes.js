@@ -7,6 +7,7 @@ class Recipes {
         this._ingredientsInResults = [];
         this._appliancesInResults = [];
         this._ustensilsInResults = [];
+        this._tags = [];
     }
 
     // Check if query is at least 3 characters long
@@ -167,6 +168,18 @@ class Recipes {
         return this._ustensilsInResults.sort();
     }
 
+    // Add tag
+    addTag(tag, category) {
+        if (!this._tags.includes(tag)) {
+            let item = {};
+            item["tag"] = tag
+            item["category"] = category
+            this._tags.push(item);
+            let myTags = new TagsTemplate();
+            myTags.showTags();
+        }
+    }
+
 
     // Render data array to DOM
     renderAll() {
@@ -201,6 +214,14 @@ class Recipes {
             element.remove();
         });
         return "Dropdown items removed";
+    }
+
+    // Remove tag
+    removeTag(tag) {
+        this._tags = this._tags.filter(item => item.tag !== tag);
+        let myTags = new TagsTemplate();
+        myTags.showTags();
+        return this._tags;
     }
 
 }
