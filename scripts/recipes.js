@@ -122,34 +122,21 @@ class Recipes {
 
     // Search by Ingredient
     getRecipesbyIngredient(array, type, query) {
-        array.forEach(recipe => {
-            let recipeId = recipe.id;
-            let recipeIngredients = recipe.ingredients
+        for (let i = 0; i < array.length; i++) {
+            let recipeId = array[i].id;
+            let recipeIngredients = array[i].ingredients;
 
-            // Check if a recipe includes search input characters in its array of ingredients
-            recipeIngredients.forEach(element => {
-                if (element.ingredient.toLowerCase().includes(query)) {
-
-                    // Add recipe to results array (only if its id is not yet listed)
+            for (let el = 0; el < recipeIngredients.length; el++) {
+                if (recipeIngredients[el].ingredient.toLowerCase().includes(this._query)) {
                     if (!this.isId(recipeId, type)) {
-                        if (type == "global") {
-                            this._results.push(recipe);
-                        }
-                        if (type == "filtered") {
-                            this._filteredResults.push(recipe);
-                            console.log(this._filteredResults)
-                        }
-
-                        return recipe;
+                        this._results.push(array[i])
                     }
                 }
-                else {
-                    return "No recipe found";
-                }
-            })
-
-        });
+            }
+        }
     }
+
+
 
     getRecipesbyAppliance(tag) {
         this._results.forEach(recipe => {
