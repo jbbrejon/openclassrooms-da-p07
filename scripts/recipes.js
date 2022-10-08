@@ -127,16 +127,20 @@ class Recipes {
             let recipeIngredients = array[i].ingredients;
 
             for (let el = 0; el < recipeIngredients.length; el++) {
-                if (recipeIngredients[el].ingredient.toLowerCase().includes(this._query)) {
+                if (recipeIngredients[el].ingredient.toLowerCase().includes(query)) {
+                    // Add recipe to results array (only if its id is not yet listed)
                     if (!this.isId(recipeId, type)) {
-                        this._results.push(array[i])
+                        if (type == "global") {
+                            this._results.push(array[i]);
+                        }
+                        else if (type == "filtered") {
+                            this._filteredResults.push(array[i]);
+                        }
                     }
                 }
             }
         }
     }
-
-
 
     getRecipesbyAppliance(tag) {
         this._results.forEach(recipe => {
@@ -227,7 +231,7 @@ class Recipes {
 
     searchByTag(tag, category) {
         if (category == "ingredients") {
-
+            console.log(tag)
             this.getRecipesbyIngredient(this._results, "filtered", tag.toLowerCase())
         }
         else if (category == "appliances") {
