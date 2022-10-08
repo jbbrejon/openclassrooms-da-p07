@@ -264,18 +264,16 @@ class Recipes {
     // Render data array to DOM
     renderAll() {
         for (let i = 0; i < this._data.length; i++) {
-            console.log(this._data[i]);
             let article = new RecipeTemplate(this._data[i]);
             article.createCard();
         }
     }
     // Render results array to DOM
     renderResults() {
-        this._results.forEach(recipe => {
-            let article = new RecipeTemplate(recipe);
+        for (let i = 0; i < this._results.length; i++) {
+            let article = new RecipeTemplate(this._data[i]);
             article.createCard();
-            return article
-        });
+        }
     }
 
     renderFilteredResults() {
