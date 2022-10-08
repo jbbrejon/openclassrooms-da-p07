@@ -97,6 +97,10 @@ class Recipes {
                 return "No recipe found";
             }
         });
+
+
+
+
     }
 
     // Search by description
@@ -259,11 +263,11 @@ class Recipes {
 
     // Render data array to DOM
     renderAll() {
-        this._data.forEach(recipe => {
-            let article = new RecipeTemplate(recipe);
+        for (let i = 0; i < this._data.length; i++) {
+            console.log(this._data[i]);
+            let article = new RecipeTemplate(this._data[i]);
             article.createCard();
-            return article
-        });
+        }
     }
     // Render results array to DOM
     renderResults() {
