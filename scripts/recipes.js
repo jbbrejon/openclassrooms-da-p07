@@ -93,33 +93,31 @@ class Recipes {
                 }
             }
             else {
-                console.log("No recipe found");
+                return "No recipe found";
             }
         }
     }
 
     // Search by description
     getRecipesbyDescription(array, type) {
-        array.forEach(recipe => {
-            let recipeId = recipe.id;
-            let recipeDesc = recipe.description;
-            // Check if a recipe includes search input characters in its description
+        for (let i = 0; i < array.length; i++) {
+            let recipeId = array[i].id;
+            let recipeDesc = array[i].description;
             if (recipeDesc.toLowerCase().includes(this._query)) {
                 // Add recipe to results array (only if its id is not yet listed)
                 if (!this.isId(recipeId, type)) {
                     if (type == "global") {
-                        this._results.push(recipe);
+                        this._results.push(array[i]);
                     }
                     else if (type == "filtered") {
-                        this._filteredResults.push(recipe);
+                        this._filteredResults.push(array[i]);
                     }
-                    return recipe;
                 }
             }
             else {
                 return "No recipe found";
             }
-        });
+        }
     }
 
     // Search by Ingredient
