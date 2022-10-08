@@ -6,3 +6,6 @@ let searchInput = document.getElementById("item");
 let myInput = new Input();
 // Create new instance of Recipes class
 let myRecipes = new Recipes(recipes);
+
+// Display all recipes on page load
+myRecipes.renderAll();
