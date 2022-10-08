@@ -77,30 +77,25 @@ class Recipes {
 
     // Search by name
     getRecipesbyName(array, type) {
-        array.forEach(recipe => {
-            let recipeId = recipe.id;
-            let recipeName = recipe.name;
-            // Check if a recipe includes search input characters in its name
+        for (let i = 0; i < array.length; i++) {
+            let recipeId = array[i].id;
+            let recipeName = array[i].name;
             if (recipeName.toLowerCase().includes(this._query)) {
+
                 // Add recipe to results array (only if its id is not yet listed)
                 if (!this.isId(recipeId, type)) {
                     if (type == "global") {
-                        this._results.push(recipe);
+                        this._results.push(array[i]);
                     }
                     else if (type == "filtered") {
-                        this._filteredResults.push(recipe);
+                        this._filteredResults.push(array[i]);
                     }
-                    return recipe;
                 }
             }
             else {
-                return "No recipe found";
+                console.log("No recipe found");
             }
-        });
-
-
-
-
+        }
     }
 
     // Search by description
@@ -271,14 +266,14 @@ class Recipes {
     // Render results array to DOM
     renderResults() {
         for (let i = 0; i < this._results.length; i++) {
-            let article = new RecipeTemplate(this._data[i]);
+            let article = new RecipeTemplate(this._results[i]);
             article.createCard();
         }
     }
 
     renderFilteredResults() {
         for (let i = 0; i < this._filteredResults.length; i++) {
-            let article = new RecipeTemplate(this._data[i]);
+            let article = new RecipeTemplate(this._filteredResults[i]);
             article.createCard();
         }
     }
