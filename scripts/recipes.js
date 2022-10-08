@@ -277,11 +277,10 @@ class Recipes {
     }
 
     renderFilteredResults() {
-        this._filteredResults.forEach(recipe => {
-            let article = new RecipeTemplate(recipe);
+        for (let i = 0; i < this._filteredResults.length; i++) {
+            let article = new RecipeTemplate(this._data[i]);
             article.createCard();
-            return article
-        });
+        }
     }
 
     // Remove recipe to DOM
