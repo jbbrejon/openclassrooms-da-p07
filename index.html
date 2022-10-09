@@ -52,8 +52,9 @@
                 </button>
 
                 <div class="dropdown-menu ingredients" id="dropdown-ingredients">
-                    <input type="search" aria-label="Search" placeholder="Rechercher un ingrédient"
-                        name="item-ingredients" id="item-ingredients" oninput="myInput.update('ingredients')">
+                    <input class="dropdown-input ingredients" type="search" aria-label="Search"
+                        placeholder="Rechercher un ingrédient" name="item-ingredients" id="item-ingredients"
+                        oninput="myInput.update('ingredients')">
                 </div>
             </div>
             <!-- Dropdown - Appliances -->
@@ -63,8 +64,9 @@
                     Appareils
                 </button>
                 <div class="dropdown-menu appliances" id="dropdown-appliances">
-                    <input type="search" aria-label="Search" placeholder="Rechercher un appareil" name="item-appliances"
-                        id="item-appliances" oninput="myInput.update('appliances')">
+                    <input class="dropdown-input appliances" type="search" aria-label="Search"
+                        placeholder="Rechercher un appareil" name="item-appliances" id="item-appliances"
+                        oninput="myInput.update('appliances')">
                 </div>
             </div>
             <!-- Dropdown - Ustensils -->
@@ -75,13 +77,14 @@
                 </button>
 
                 <div class="dropdown-menu ustensils" id="dropdown-ustensils">
-                    <input type="search" aria-label="Search" placeholder="Rechercher un ustensile" name="item-ustensils"
-                        id="item-ustensils" oninput="myInput.update('ustensils')">
+                    <input class="dropdown-input ustensils" type="search" aria-label="Search"
+                        placeholder="Rechercher un ustensile" name="item-ustensils" id="item-ustensils"
+                        oninput="myInput.update('ustensils')">
                 </div>
             </div>
 
             <!-- Recipes cards -->
-            <section id="sect-results" class="row mt-4 g-2"></section>
+            <section id="sect-results" class="row mt-4"></section>
             <!-- No results message -->
             <div id="no-results">Aucune recette ne correspond à votre critère … Vous pouvez chercher "tarte aux pommes",
                 "poisson", etc.
