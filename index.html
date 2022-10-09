@@ -34,7 +34,7 @@
         </header>
         <!-- Search bar-->
         <form class="form-inline row mt-4" id="global-search" onsubmit="event.preventDefault()">
-            <input class="form-control col-11 bg-light input-search mb-5" type="search"
+            <input class="form-control col-12 bg-light input-search mb-5" type="search"
                 placeholder="Rechercher une recette" aria-label="Search" name="item" id="item"
                 oninput="myInput.update()">
         </form>
@@ -46,7 +46,7 @@
             </div>
             <!-- Dropdown - Ingredients-->
             <div class="btn-group">
-                <button type="button" class="btn btn-ingredients me-2 dropdown-toggle" data-toggle="dropdown"
+                <button type="button" class="btn ingredients me-3 dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     Ingrédients
                 </button>
@@ -54,8 +54,8 @@
                 </div>
             </div>
             <!-- Dropdown - Appliances -->
-            <div class="btn-group">
-                <button type="button" class="btn btn-appliances me-2 dropdown-toggle" data-toggle="dropdown"
+            <div class="btn-group me-3">
+                <button type="button" class="btn appliances me-3 dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     Appareils
                 </button>
@@ -64,7 +64,7 @@
             </div>
             <!-- Dropdown - Ustensils -->
             <div class="btn-group">
-                <button type="button" class="btn btn-ustensils me-2 dropdown-toggle" data-toggle="dropdown"
+                <button type="button" class="btn ustensils me-3 dropdown-toggle" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     Ustensiles
                 </button>
@@ -73,7 +73,7 @@
             </div>
 
             <!-- Recipes cards -->
-            <section id="sect-results" class="row mt-4"></section>
+            <section id="sect-results" class="row mt-4 g-2"></section>
             <!-- No results message -->
             <div id="no-results">Aucune recette ne correspond à votre critère … Vous pouvez chercher "tarte aux pommes",
                 "poisson", etc.
