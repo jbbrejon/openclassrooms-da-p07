@@ -11,8 +11,7 @@ class TagsTemplate {
         myRecipes._tags.forEach(element => {
             let li = document.createElement('li');
             li.innerHTML = `${element.tag} <i class="bi bi-x-circle"></i>`;
-            li.setAttribute("class", "tag-li");
-            li.setAttribute("class", `tag-${element.category}`);
+            li.setAttribute("class", `tag-li ${element.category}`);
             li.setAttribute("onclick", `myRecipes.removeTag("${element.tag}")`);
             ul.appendChild(li);
             taglist.appendChild(ul)
