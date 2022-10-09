@@ -100,11 +100,14 @@ li {
 .card {
     padding: 0;
     background-color: #E7E7E7;
+    border: solid 5px white;
+    border-radius: 10px;
 }
 
 .card-img-background {
     background-color: #C7BEBE;
     height: 178px;
+    border-radius: 10px 10px 0 0;
 }
 
 .card-title {
