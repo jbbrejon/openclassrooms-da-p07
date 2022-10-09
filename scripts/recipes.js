@@ -22,46 +22,63 @@ class Recipes {
     }
 
     // Search method
-    globalSearch(input) {
+    globalSearch(input, type) {
         this._query = input;
+        // Reset DOM elements
+        this.removeCards();
+        this.removeDropdown();
+        document.getElementById('no-results').style.display = "none"
+        // Reset arrays containing previous values
+        this._results = [];
+        this._ingredientsInResults = [];
+        this._appliancesInResults = [];
+        this._ustensilsInResults = [];
+        // Start search if input is at least 3 characters long
         if (this.isThreeChar()) {
-
-            // Reset arrays containing previous values
-            this._results = [];
-            this._ingredientsInResults = [];
-            this._appliancesInResults = [];
-            this._ustensilsInResults = [];
-
-            // Reset DOM elements
-            this.removeCards();
-            this.removeDropdown()
-            document.getElementById('no-results').style.display = "none";
-
-            // Search by name (title)
-            this.getRecipesbyName(this._data, "global");
-            // Search by description
-            this.getRecipesbyDescription(this._data, "global");
-            // Search by ingredient
-            this.getRecipesbyIngredient(this._data, "global", this._query);
-
+            if (type == 'global') {
+                // Search by name (title)
+                this.getRecipesbyName(this._data, "global");
+                // Search by description
+                this.getRecipesbyDescription(this._data, "global");
+                // Search by ingredient
+                this.getRecipesbyIngredient(this._data, "global", this._query);
+                // Get list of ingredients, appliances, ustensils from results array and add dropdown elements to DOM
+                this.getIngredients("global");
+                this.getAppliances();
+                this.getUstensils("global");
+            }
+            else if (type == 'ingredients') {
+                // Search by ingredient
+                this.getRecipesbyIngredient(this._data, "global", this._query);
+                // Get list of ingredients from results array and add dropdown elements to DOM
+                this.getIngredients("ingredients");
+            }
+            else if (type == 'appliances') {
+                this.getRecipesbyAppliance(this._data, "global", this._query);
+                // Get list of appliances from results array and add dropdown elements to DOM
+                this.getAppliances();
+            }
+            else if (type == 'ustensils') {
+                this.getRecipesbyUstensils(this._data, "global", this._query);
+                // Get list of ustensils from results array and add dropdown elements to DOM
+                this.getUstensils('ustensils');
+            }
+            // Display message if no recipe has been found
             if (this._results.length == 0) {
                 // Show no-results message
                 document.getElementById('no-results').style.display = "block";
             }
             else {
-                // Get list of ingredients, appliances from results array and add dropdown elements to DOM
-                this.getIngredients();
-                this.getAppliances();
-                this.getUstensils();
-                // Add results to DOM (recipes)
+                // Display results
                 this.renderResults();
             }
         }
         else {
-            // Display all recipes
+            // Display all recipes if input is less than 3 characters long
             this.renderAll();
         }
     }
+
     // Check if recipe already exists in filtered results
     isId(id, type) {
         let isFound;
@@ -154,43 +171,62 @@ class Recipes {
         });
     }
 
-    getRecipesbyAppliance(tag) {
-        this._results.forEach(recipe => {
+    // Search by Appliance
+    getRecipesbyAppliance(array, type, query) {
+        array.forEach(recipe => {
             let recipeId = recipe.id;
             let recipeAppliance = recipe.appliance;
-            if (recipeAppliance.includes(tag)) {
-                if (!this.isId(recipeId, "filtered")) {
-
-                    this._filteredResults.push(recipe)
+            if (recipeAppliance.toLowerCase().includes(query)) {
+                if (!this.isId(recipeId, type)) {
+                    if (type == "global") {
+                        this._results.push(recipe);
+                    }
+                    if (type == "filtered") {
+                        this._filteredResults.push(recipe);
+                    }
                 }
             }
         });
     }
 
-    getRecipesbyUstensils(tag) {
-        this._results.forEach(recipe => {
+    // Search by Ustensils
+    getRecipesbyUstensils(array, type, query) {
+        array.forEach(recipe => {
             let recipeId = recipe.id;
             let recipeTools = recipe.ustensils;
-
-            if (recipeTools.includes(tag)) {
-                if (!this.isId(recipeId, "filtered")) {
-
-                    this._filteredResults.push(recipe)
+            recipeTools.forEach(element => {
+                if (element.includes(query)) {
+                    console.log("test")
+                    if (!this.isId(recipeId, type)) {
+                        if (type == "global") {
+                            this._results.push(recipe);
+                        }
+                        if (type == "filtered") {
+                            this._filteredResults.push(recipe);
+                        }
+                    }
                 }
-            }
-
+            });
         });
     }
-
 
 
     // Get list of ingredients from results array + fill dropdown-ingredients
-    getIngredients() {
+    getIngredients(type) {
         this._results.forEach(recipe => {
             let recipeIngredients = recipe.ingredients
             recipeIngredients.forEach(element => {
-                if (!this._ingredientsInResults.includes(element.ingredient)) {
-                    this._ingredientsInResults.push(element.ingredient);
+                if (type == "global") {
+                    if (!this._ingredientsInResults.includes(element.ingredient)) {
+                        this._ingredientsInResults.push(element.ingredient);
+                    }
+                }
+                else if (type == "ingredients") {
+                    if (element.ingredient.includes(this._query)) {
+                        if (!this._ingredientsInResults.includes(element.ingredient)) {
+                            this._ingredientsInResults.push(element.ingredient);
+                        }
+                    }
                 }
             })
         });
@@ -198,10 +234,14 @@ class Recipes {
         dropdown.createList();
         return this._ingredientsInResults.sort();
     }
+
+
+
     // Get list of appliances from results array + fill dropdown-appliances
     getAppliances() {
         this._results.forEach(recipe => {
             let recipeAppliance = recipe.appliance;
+
             if (!this._appliancesInResults.includes(recipeAppliance)) {
                 this._appliancesInResults.push(recipeAppliance);
             }
@@ -210,16 +250,28 @@ class Recipes {
         dropdown.createList();
         return this._appliancesInResults.sort();
     }
+
     // Get list of ustensils from results array + fill dropdown-ustensils
-    getUstensils() {
+    getUstensils(type) {
         this._results.forEach(recipe => {
             let recipeTools = recipe.ustensils
             recipeTools.forEach(element => {
-                if (!this._ustensilsInResults.includes(element)) {
-                    this._ustensilsInResults.push(element);
+
+                if (type == "global") {
+                    if (!this._ustensilsInResults.includes(element)) {
+                        this._ustensilsInResults.push(element);
+                    }
+                }
+                else if (type == "ustensils") {
+                    if (element.includes(this._query)) {
+                        if (!this._ustensilsInResults.includes(element)) {
+                            this._ustensilsInResults.push(element);
+                        }
+                    }
                 }
             })
         });
+
         let dropdown = new DropdownTemplate("ustensils", this._ustensilsInResults.sort())
         dropdown.createList();
         return this._ustensilsInResults.sort();
@@ -240,23 +292,19 @@ class Recipes {
             this.renderFilteredResults();
         }
     }
-
+    // Search by tag from dropdown menu
     searchByTag(tag, category) {
         if (category == "ingredients") {
-
             this.getRecipesbyIngredient(this._results, "filtered", tag.toLowerCase())
         }
         else if (category == "appliances") {
-            this.getRecipesbyAppliance(tag)
+            this.getRecipesbyAppliance(this._results, "filtered", tag.toLowerCase())
 
         }
         else if (category == "ustensils") {
-            this.getRecipesbyUstensils(tag)
-
+            this.getRecipesbyUstensils(this._results, "filtered", tag.toLowerCase())
         }
-
     }
-
 
     // Render data array to DOM
     renderAll() {
@@ -274,7 +322,7 @@ class Recipes {
             return article
         });
     }
-
+    // Render filteredResults array to DOM
     renderFilteredResults() {
         this._filteredResults.forEach(recipe => {
             let article = new RecipeTemplate(recipe);
@@ -283,7 +331,7 @@ class Recipes {
         });
     }
 
-    // Remove recipe to DOM
+    // Remove recipe cards from DOM
     removeCards() {
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
@@ -294,7 +342,7 @@ class Recipes {
 
     // Remove dropdown elements
     removeDropdown() {
-        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        const dropdownItems = document.querySelectorAll('.dropdown-ul');
         dropdownItems.forEach(element => {
             element.remove();
         });
@@ -309,12 +357,10 @@ class Recipes {
         let myTags = new TagsTemplate();
         myTags.showTags();
 
-
         if (this._tags.length == 0) {
             this.renderResults();
         }
         else {
-
             this._tags.forEach(item => {
                 this.searchByTag(item.tag, item.category);
 
@@ -325,5 +371,4 @@ class Recipes {
 
         return this._tags;
     }
-
 }
