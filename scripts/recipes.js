@@ -44,7 +44,7 @@ class Recipes {
                 this.getRecipesbyIngredient(this._data, "global", this._query);
                 // Get list of ingredients, appliances, ustensils from results array and add dropdown elements to DOM
                 this.getIngredients("global");
-                this.getAppliances("global");
+                this.getAppliances();
                 this.getUstensils("global");
             }
             else if (type == 'ingredients') {
@@ -56,12 +56,12 @@ class Recipes {
             else if (type == 'appliances') {
                 this.getRecipesbyAppliance(this._data, "global", this._query);
                 // Get list of appliances from results array and add dropdown elements to DOM
-                this.getAppliances("appliances");
+                this.getAppliances();
             }
             else if (type == 'ustensils') {
                 this.getRecipesbyUstensils(this._data, "global", this._query);
                 // Get list of ustensils from results array and add dropdown elements to DOM
-                this.getUstensils();
+                this.getUstensils('ustensils');
             }
             // Display message if no recipe has been found
             if (this._results.length == 0) {
@@ -191,7 +191,6 @@ class Recipes {
 
     // Search by Ustensils
     getRecipesbyUstensils(array, type, query) {
-        console.log(query)
         array.forEach(recipe => {
             let recipeId = recipe.id;
             let recipeTools = recipe.ustensils;
@@ -239,7 +238,7 @@ class Recipes {
 
 
     // Get list of appliances from results array + fill dropdown-appliances
-    getAppliances(type) {
+    getAppliances() {
         this._results.forEach(recipe => {
             let recipeAppliance = recipe.appliance;
 
@@ -253,15 +252,26 @@ class Recipes {
     }
 
     // Get list of ustensils from results array + fill dropdown-ustensils
-    getUstensils() {
+    getUstensils(type) {
         this._results.forEach(recipe => {
             let recipeTools = recipe.ustensils
             recipeTools.forEach(element => {
-                if (!this._ustensilsInResults.includes(element)) {
-                    this._ustensilsInResults.push(element);
+
+                if (type == "global") {
+                    if (!this._ustensilsInResults.includes(element)) {
+                        this._ustensilsInResults.push(element);
+                    }
+                }
+                else if (type == "ustensils") {
+                    if (element.includes(this._query)) {
+                        if (!this._ustensilsInResults.includes(element)) {
+                            this._ustensilsInResults.push(element);
+                        }
+                    }
                 }
             })
         });
+
         let dropdown = new DropdownTemplate("ustensils", this._ustensilsInResults.sort())
         dropdown.createList();
         return this._ustensilsInResults.sort();
@@ -332,7 +342,7 @@ class Recipes {
 
     // Remove dropdown elements
     removeDropdown() {
-        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        const dropdownItems = document.querySelectorAll('.dropdown-ul');
         dropdownItems.forEach(element => {
             element.remove();
         });
