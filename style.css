@@ -61,7 +61,13 @@ li {
 
 .dropdown-ul {
     flex-direction: column;
+
 }
+
+.dropdown-item {
+    color: white;
+}
+
 
 #no-results {
     display: none;
