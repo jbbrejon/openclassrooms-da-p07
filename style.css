@@ -4,3 +4,151 @@
     font-weight: 700;
     font-family: 'DM Sans', sans-serif;
 }
+
+/* Properties colors */
+.ingredients {
+    background-color: #3282F7;
+    color: white;
+}
+
+.appliances {
+    background-color: #68D9A4;
+    color: white;
+}
+
+.ustensils {
+    background-color: #ED6454;
+    color: white;
+}
+
+/* ---------- */
+
+/* Dropdown */
+.dropdown-toggle {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+}
+
+.btn-group {
+    margin-right: 15px;
+}
+
+.btn {
+    width: 170px;
+    height: 69px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* Lists */
+ul {
+    list-style: none;
+    display: flex;
+    padding-left: 0;
+}
+
+li {
+    padding: 5px 10px;
+}
+
+.tag-li {
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.dropdown-ul {
+    flex-direction: column;
+}
+
+#no-results {
+    display: none;
+}
+
+/* ---------- */
+
+/* Card */
+.card {
+    padding: 0;
+    background-color: #E7E7E7;
+}
+
+.card-img-background {
+    background-color: #C7BEBE;
+    height: 178px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+}
+
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    align-items: center;
+
+}
+
+.card-time {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+}
+
+.card-time p {
+    display: flex;
+    margin: 0 5px;
+}
+
+.card-time i {
+    display: flex;
+    margin: 0;
+}
+
+
+.card-instructions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    font-size: 12px;
+    margin: 0;
+}
+
+.card-ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+    width: 45%;
+}
+
+.card-li {
+    padding: 0;
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+}
+
+.card-description {
+    display: flex;
+    width: 45%;
+    font-size: 12px;
+    overflow: hidden;
+    max-height: 8rem;
+    -webkit-box-orient: vertical;
+    display: block;
+    display: -webkit-box;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 6;
+}
+
+li span {
+    font-weight: 700;
+}
