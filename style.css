@@ -153,7 +153,7 @@ li {
 .card-instructions {
     display: flex;
     justify-content: space-between;
-    padding: 0 1.25rem;
+    padding: 0 1rem;
     font-size: 12px;
     margin: 0;
 }
