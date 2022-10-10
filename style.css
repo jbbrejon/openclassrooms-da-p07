@@ -23,6 +23,24 @@
 
 /* ---------- */
 
+/* Lists */
+ul {
+    list-style: none;
+    display: flex;
+    padding-left: 0;
+}
+
+li {
+    padding: 5px 10px;
+}
+
+.tag-li {
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+/* ------- */
+
 /* Dropdown */
 .dropdown-toggle {
     font-size: 18px;
@@ -36,11 +54,14 @@
 
 
 .dropdown-ul {
-    flex-direction: column;
-
+    display: flex;
+    width: 550px;
+    flex-wrap: wrap;
 }
 
 .dropdown-item {
+    display: flex;
+    width: 30%;
     color: white;
 }
 
@@ -60,6 +81,7 @@
 }
 
 
+
 .btn-group {
     margin-right: 15px;
 }
@@ -73,21 +95,6 @@
 }
 
 
-/* Lists */
-ul {
-    list-style: none;
-    display: flex;
-    padding-left: 0;
-}
-
-li {
-    padding: 5px 10px;
-}
-
-.tag-li {
-    border-radius: 5px;
-    margin-right: 10px;
-}
 
 
 #no-results {
