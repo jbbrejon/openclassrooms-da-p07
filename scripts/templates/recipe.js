@@ -37,7 +37,7 @@ class RecipeTemplate {
 
         const cardInstructions = document.createElement('div');
         cardInstructions.setAttribute("class", "card-instructions");
-        const cardUl = document.createElement('div');
+        const cardUl = document.createElement('ul');
         cardUl.setAttribute("class", "card-ul");
         this._ingredients.forEach(element => {
             let li = document.createElement('li');
