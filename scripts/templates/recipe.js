@@ -4,6 +4,8 @@ class RecipeTemplate {
     constructor(recipe) {
         this._name = recipe.name;
         this._time = recipe.time;
+        this._ingredients = recipe.ingredients;
+        this._description = recipe.description;
     }
     // Method to create recipe article
     createCard() {
@@ -32,6 +34,42 @@ class RecipeTemplate {
         cardBody.appendChild(cardHead);
         card.appendChild(cardImg);
         card.appendChild(cardBody);
+
+        const cardInstructions = document.createElement('div');
+        cardInstructions.setAttribute("class", "card-instructions");
+        const cardUl = document.createElement('div');
+        cardUl.setAttribute("class", "card-ul");
+        this._ingredients.forEach(element => {
+            let li = document.createElement('li');
+            li.setAttribute("class", "card-li");
+            if (element.unit == undefined) {
+                if (element.quantity == undefined) {
+                    li.innerHTML = `<span>${element.ingredient}</span>`
+                }
+                else {
+                    li.innerHTML = `<span>${element.ingredient}</span>: ${element.quantity}`
+                }
+            }
+            else {
+                if (element.unit == "grammes") {
+                    li.innerHTML = `<span>${element.ingredient}</span>: ${element.quantity}g`;
+                }
+                else {
+                    li.textContent = `${element.ingredient}: ${element.quantity}${element.unit}`;
+                    li.innerHTML = `<span>${element.ingredient}</span>: ${element.quantity} ${element.unit}`;
+                }
+            }
+
+            cardUl.appendChild(li);
+        });
+        const cardDesc = document.createElement('p');
+        cardDesc.setAttribute("class", "card-description");
+        cardDesc.textContent = this._description;
+        cardInstructions.appendChild(cardUl);
+        cardInstructions.appendChild(cardDesc);
+        card.appendChild(cardInstructions);
+
+
         sectResults.appendChild(card);
         return card;
     }
