@@ -278,15 +278,16 @@ class Recipes {
     }
 
     // Add tag
-    addTag(tag, category) {
-        if (!this._tags.includes(tag)) {
+    addTag(newtag, category) {
+        let isFound = this._tags.some(item => item.tag == newtag);
+        if (!isFound == true) {
             let item = {};
-            item["tag"] = tag
+            item["tag"] = newtag
             item["category"] = category
             this._tags.push(item);
             let myTags = new TagsTemplate();
             myTags.showTags();
-            this.searchByTag(tag, category);
+            this.searchByTag(newtag, category);
             this.removeCards();
             // Add results to DOM (recipes)
             this.renderFilteredResults();
