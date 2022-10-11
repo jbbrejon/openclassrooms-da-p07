@@ -52,16 +52,22 @@ class Recipes {
                 this.getRecipesbyIngredient(this._data, "global", this._query);
                 // Get list of ingredients from results array and add dropdown elements to DOM
                 this.getIngredients("ingredients");
+                // Get list of appliances from results array and add dropdown elements to DOM
+                this.getAppliances();
+                this.getUstensils("global");
             }
             else if (type == 'appliances') {
                 this.getRecipesbyAppliance(this._data, "global", this._query);
                 // Get list of appliances from results array and add dropdown elements to DOM
                 this.getAppliances();
+                this.getIngredients("global");
             }
             else if (type == 'ustensils') {
                 this.getRecipesbyUstensils(this._data, "global", this._query);
                 // Get list of ustensils from results array and add dropdown elements to DOM
                 this.getUstensils('ustensils');
+                this.getAppliances();
+                this.getIngredients("global");
             }
             // Display message if no recipe has been found
             if (this._results.length == 0) {
@@ -318,7 +324,7 @@ class Recipes {
                     }
                 }
                 if (t.category == "ustensils") {
-                    if (recipe.ustensils.toLowerCase().includes(t.tag.toLowerCase())) {
+                    if (recipe.ustensils.includes(t.tag)) {
                         isFoundInUstensils = true;
                     }
                     else {
