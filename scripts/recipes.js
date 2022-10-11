@@ -157,7 +157,6 @@ class Recipes {
                         }
                         if (type == "filtered") {
                             this._filteredResults.push(recipe);
-                            console.log(this._filteredResults)
                         }
 
                         return recipe;
@@ -366,7 +365,6 @@ class Recipes {
                 this.searchByTag(item.tag, item.category);
 
             });
-            console.log(this._results)
             this.renderFilteredResults();
         }
 
