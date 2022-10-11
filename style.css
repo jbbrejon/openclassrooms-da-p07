@@ -191,3 +191,25 @@ li {
 li span {
     font-weight: 700;
 }
+
+/* Searchbar */
+.form-inline {
+    display: flex;
+    position: relative;
+}
+
+.form-control {
+    display: flex;
+    height: 69px;
+    background-color: #E7E7E7 !important;
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+}
+
+.bi-search {
+    position: absolute;
+    font-size: 30px;
+    font-weight: bold;
+    top: 15px;
+    right: 25px;
+}
