@@ -232,7 +232,6 @@ class Recipes {
 
     searchByTag(tag, category) {
         if (category == "ingredients") {
-            console.log(tag)
             this.getRecipesbyIngredient(this._results, "filtered", tag.toLowerCase())
         }
         else if (category == "appliances") {
@@ -304,7 +303,6 @@ class Recipes {
                 this.searchByTag(item.tag, item.category);
 
             });
-            console.log(this._results)
             this.renderFilteredResults();
         }
 
