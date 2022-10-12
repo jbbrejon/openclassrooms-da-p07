@@ -52,16 +52,26 @@ class Recipes {
                 this.getRecipesbyIngredient(this._data, "global", this._query);
                 // Get list of ingredients from results array and add dropdown elements to DOM
                 this.getIngredients("ingredients");
+                // Get list of appliances from results array and add dropdown elements to DOM
+                this.getAppliances();
+                // Get list of ustensils from results array and add dropdown elements to DOM
+                this.getUstensils("global");
             }
             else if (type == 'appliances') {
                 this.getRecipesbyAppliance(this._data, "global", this._query);
                 // Get list of appliances from results array and add dropdown elements to DOM
                 this.getAppliances();
+                // Get list of ingredients from results array and add dropdown elements to DOM
+                this.getIngredients("global");
             }
             else if (type == 'ustensils') {
                 this.getRecipesbyUstensils(this._data, "global", this._query);
                 // Get list of ustensils from results array and add dropdown elements to DOM
                 this.getUstensils('ustensils');
+                // Get list of appliances from results array and add dropdown elements to DOM
+                this.getAppliances();
+                // Get list of ingredients from results array and add dropdown elements to DOM
+                this.getIngredients("global");
             }
             // Display message if no recipe has been found
             if (this._results.length == 0) {
@@ -149,7 +159,6 @@ class Recipes {
             // Check if a recipe includes search input characters in its array of ingredients
             recipeIngredients.forEach(element => {
                 if (element.ingredient.toLowerCase().includes(query)) {
-
                     // Add recipe to results array (only if its id is not yet listed)
                     if (!this.isId(recipeId, type)) {
                         if (type == "global") {
@@ -158,7 +167,6 @@ class Recipes {
                         if (type == "filtered") {
                             this._filteredResults.push(recipe);
                         }
-
                         return recipe;
                     }
                 }
@@ -195,7 +203,6 @@ class Recipes {
             let recipeTools = recipe.ustensils;
             recipeTools.forEach(element => {
                 if (element.includes(query)) {
-                    console.log("test")
                     if (!this.isId(recipeId, type)) {
                         if (type == "global") {
                             this._results.push(recipe);
@@ -304,7 +311,51 @@ class Recipes {
         else if (category == "ustensils") {
             this.getRecipesbyUstensils(this._results, "filtered", tag.toLowerCase())
         }
+        this._tags.forEach(t => {
+            this._filteredResults.forEach(recipe => {
+                let isFoundInAppliances = true;
+                let isFoundInUstensils = true;
+                let isFoundInIngredients = true;
+                let recipeId = recipe.id;
+                if (t.category == "appliances") {
+                    if (recipe.appliance.toLowerCase() == t.tag.toLowerCase()) {
+                        isFoundInAppliances = true;
+                    }
+                    else {
+                        isFoundInAppliances = false;
+                    }
+                }
+                if (t.category == "ustensils") {
+                    if (recipe.ustensils.includes(t.tag)) {
+                        isFoundInUstensils = true;
+                    }
+                    else {
+                        isFoundInUstensils = false;
+                    }
+                }
+                if (t.category == "ingredients") {
+                    let isFound;
+                    recipe.ingredients.forEach(i => {
+                        if (i.ingredient.toLowerCase() == t.tag.toLowerCase()) {
+                            isFound = true;
+                        }
+                    });
+                    if (isFound) {
+                        isFoundInIngredients = true;
+                    }
+                    else {
+                        isFoundInIngredients = false;
+                    }
+                }
+                if (this._filteredResults.length > 1) {
+                    if (!isFoundInAppliances || !isFoundInUstensils || !isFoundInIngredients) {
+                        this._filteredResults = this._filteredResults.filter(r => r.id !== recipeId)
+                    }
+                }
+            })
+        });
     }
+
 
     // Render data array to DOM
     renderAll() {
@@ -363,10 +414,10 @@ class Recipes {
         else {
             this._tags.forEach(item => {
                 this.searchByTag(item.tag, item.category);
+
             });
             this.renderFilteredResults();
         }
-
         return this._tags;
     }
 }
