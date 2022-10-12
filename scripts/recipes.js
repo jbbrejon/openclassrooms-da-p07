@@ -54,19 +54,23 @@ class Recipes {
                 this.getIngredients("ingredients");
                 // Get list of appliances from results array and add dropdown elements to DOM
                 this.getAppliances();
+                // Get list of ustensils from results array and add dropdown elements to DOM
                 this.getUstensils("global");
             }
             else if (type == 'appliances') {
                 this.getRecipesbyAppliance(this._data, "global", this._query);
                 // Get list of appliances from results array and add dropdown elements to DOM
                 this.getAppliances();
+                // Get list of ingredients from results array and add dropdown elements to DOM
                 this.getIngredients("global");
             }
             else if (type == 'ustensils') {
                 this.getRecipesbyUstensils(this._data, "global", this._query);
                 // Get list of ustensils from results array and add dropdown elements to DOM
                 this.getUstensils('ustensils');
+                // Get list of appliances from results array and add dropdown elements to DOM
                 this.getAppliances();
+                // Get list of ingredients from results array and add dropdown elements to DOM
                 this.getIngredients("global");
             }
             // Display message if no recipe has been found
@@ -155,7 +159,6 @@ class Recipes {
             // Check if a recipe includes search input characters in its array of ingredients
             recipeIngredients.forEach(element => {
                 if (element.ingredient.toLowerCase().includes(query)) {
-
                     // Add recipe to results array (only if its id is not yet listed)
                     if (!this.isId(recipeId, type)) {
                         if (type == "global") {
@@ -164,7 +167,6 @@ class Recipes {
                         if (type == "filtered") {
                             this._filteredResults.push(recipe);
                         }
-
                         return recipe;
                     }
                 }
@@ -416,7 +418,6 @@ class Recipes {
             });
             this.renderFilteredResults();
         }
-
         return this._tags;
     }
 }
